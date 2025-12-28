@@ -14,12 +14,15 @@ const Login = () => {
         setError('');
         try {
             console.log('Attempting login with:', email);
+            console.log('API URL:', import.meta.env.VITE_API_URL);
             await login(email, password);
             navigate('/admin');
         } catch (err) {
             console.error('Login error:', err);
             console.error('Error response:', err.response?.data);
-            setError(err.response?.data?.message || 'Invalid credentials');
+            // Ensure we only set a string, not an object
+            const errorMessage = err.response?.data?.message || err.message || 'Invalid credentials';
+            setError(typeof errorMessage === 'string' ? errorMessage : 'Login failed. Please try again.');
         }
     };
 
