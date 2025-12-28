@@ -23,7 +23,7 @@ const CheckBooking = () => {
     const fetchHistory = async () => {
         try {
             const token = localStorage.getItem('patientToken');
-            const res = await axios.get('http://localhost:5000/api/appointments/my-history', {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/appointments/my-history`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setMyAppointments(res.data);
@@ -40,7 +40,7 @@ const CheckBooking = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:5000/api/booking/check', { bookingId, email });
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/booking/check`, { bookingId, email });
             setAppointment(res.data);
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to check booking');
@@ -108,7 +108,7 @@ const CheckBooking = () => {
                                                     onClick={async () => {
                                                         if (!window.confirm('Cancel this appointment?')) return;
                                                         try {
-                                                            await axios.put(`http://localhost:5000/api/appointments/${appt._id}/cancel`);
+                                                            await axios.put(`${import.meta.env.VITE_API_URL}/api/appointments/${appt._id}/cancel`);
                                                             fetchHistory();
                                                         } catch (e) { alert('Failed to cancel'); }
                                                     }}
@@ -282,7 +282,7 @@ const CheckBooking = () => {
                                             onClick={async () => {
                                                 if (!window.confirm('Are you sure you want to cancel this appointment?')) return;
                                                 try {
-                                                    await axios.put(`http://localhost:5000/api/appointments/${appointment._id}/cancel`);
+                                                    await axios.put(`${import.meta.env.VITE_API_URL}/api/appointments/${appointment._id}/cancel`);
                                                     // Refresh
                                                     handleCheck({ preventDefault: () => { } });
                                                     alert('Appointment cancelled successfully. Refund initiated.');

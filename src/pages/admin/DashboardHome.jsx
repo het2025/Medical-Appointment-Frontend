@@ -19,10 +19,10 @@ const DashboardHome = () => {
             try {
                 const token = localStorage.getItem('token');
                 const [statsRes, recentRes] = await Promise.all([
-                    axios.get('http://localhost:5000/api/appointments/dashboard/stats', {
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/appointments/dashboard/stats`, {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
-                    axios.get('http://localhost:5000/api/appointments/dashboard/recent', {
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/appointments/dashboard/recent`, {
                         headers: { Authorization: `Bearer ${token}` }
                     })
                 ]);

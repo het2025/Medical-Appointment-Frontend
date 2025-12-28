@@ -14,7 +14,7 @@ const Appointments = () => {
     const fetchAppointments = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get(`http://localhost:5000/api/appointments?date=${date.toISOString()}`, {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/appointments?date=${date.toISOString()}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setAppointments(res.data);
@@ -46,7 +46,7 @@ const Appointments = () => {
     const updateStatus = async (id, status) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.put(`http://localhost:5000/api/appointments/${id}`, { status }, {
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/appointments/${id}`, { status }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Socket will trigger refresh

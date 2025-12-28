@@ -56,7 +56,7 @@ const PublicBooking = () => {
 
     const fetchAvailability = async (selectedDate) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/appointments/availability?date=${selectedDate.toISOString()}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/appointments/availability?date=${selectedDate.toISOString()}`);
             setBookedSlots(res.data);
         } catch (err) {
             console.error('Failed to fetch availability');
@@ -65,7 +65,7 @@ const PublicBooking = () => {
 
     const fetchServices = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/services');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/services`);
             setServices(res.data);
             setFilteredServices(res.data);
 
@@ -147,7 +147,7 @@ const PublicBooking = () => {
             const slotEnd = new Date(date);
             slotEnd.setHours(endH, endM, 0);
 
-            const response = await axios.post('http://localhost:5000/api/appointments', {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/appointments`, {
                 date,
                 slotStart,
                 slotEnd,

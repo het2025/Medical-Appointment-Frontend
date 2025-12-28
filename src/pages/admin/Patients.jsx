@@ -13,7 +13,7 @@ const Patients = () => {
         const fetchPatients = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('http://localhost:5000/api/patients', {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/patients`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPatients(res.data);
@@ -27,7 +27,7 @@ const Patients = () => {
     const fetchHistory = async (patient) => {
         setSelectedPatient(patient);
         try {
-            const res = await axios.get(`http://localhost:5000/api/prescriptions/patient/${patient._id}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/prescriptions/patient/${patient._id}`);
             setHistory(res.data);
             setShowHistory(true);
         } catch (err) {

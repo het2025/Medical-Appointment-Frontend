@@ -17,7 +17,7 @@ const Services = () => {
 
     const fetchServices = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/services');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/services`);
             setServices(res.data);
         } catch (err) {
             console.error(err);
@@ -33,9 +33,9 @@ const Services = () => {
 
         try {
             if (editingId) {
-                await axios.put(`http://localhost:5000/api/services/${editingId}`, formData, config);
+                await axios.put(`${import.meta.env.VITE_API_URL}/api/services/${editingId}`, formData, config);
             } else {
-                await axios.post('http://localhost:5000/api/services', formData, config);
+                await axios.post(`${import.meta.env.VITE_API_URL}/api/services`, formData, config);
             }
             setShowModal(false);
             setFormData({ name: '', category: 'General', description: '', price: '', duration: 60, location: '', taxRate: 0 });
@@ -56,7 +56,7 @@ const Services = () => {
         if (!window.confirm('Are you sure?')) return;
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:5000/api/services/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/services/${id}`, { headers: { Authorization: `Bearer ${token}` } });
             fetchServices();
         } catch (err) {
             alert('Delete failed');

@@ -10,7 +10,7 @@ export const PatientAuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('patientToken');
         if (token) {
-            axios.get('http://localhost:5000/api/patient-auth/me', {
+            axios.get(`${import.meta.env.VITE_API_URL}/api/patient-auth/me`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(res => setPatient(res.data))
@@ -22,14 +22,14 @@ export const PatientAuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        const res = await axios.post('http://localhost:5000/api/patient-auth/login', { email, password });
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/patient-auth/login`, { email, password });
         localStorage.setItem('patientToken', res.data.token);
         setPatient(res.data.patient);
         return res.data;
     };
 
     const signup = async (formData) => {
-        const res = await axios.post('http://localhost:5000/api/patient-auth/signup', formData);
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/patient-auth/signup`, formData);
         localStorage.setItem('patientToken', res.data.token);
         setPatient(res.data.patient);
     };

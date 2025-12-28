@@ -33,7 +33,7 @@ const ChatWidget = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:5000/api/chat', { message: userMsg });
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat`, { message: userMsg });
             setMessages(prev => [...prev, { text: res.data.reply, isBot: true }]);
         } catch (err) {
             setMessages(prev => [...prev, { text: "Sorry, I'm having trouble connecting.", isBot: true }]);

@@ -23,7 +23,7 @@ const Prescriptions = () => {
     const fetchPrescriptions = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/prescriptions');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/prescriptions`);
             // Mock Data if empty
             if (res.data.length === 0) {
                 // We can display empty state or just leave it.
@@ -37,7 +37,7 @@ const Prescriptions = () => {
     const fetchPatients = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/patients', { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/patients`, { headers: { Authorization: `Bearer ${token}` } });
             setPatients(res.data);
         } catch (err) {
             console.error(err);
@@ -60,7 +60,7 @@ const Prescriptions = () => {
             // BETTER: Add a "Select Appointment" dropdown if patient selected.
             // For MVP requested: "add add button ... doctor fill ...".
 
-            await axios.post('http://localhost:5000/api/prescriptions', payload);
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/prescriptions`, payload);
             setShowModal(false);
             fetchPrescriptions();
             setFormData({ patientId: '', age: '', weight: '', bp: '', otherDetails: '', prescription: '' });
